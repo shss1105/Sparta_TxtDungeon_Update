@@ -423,7 +423,7 @@ namespace spartaDungeon_Help_Update
         private static void PrintStartLogo() // 
         {
             /*
-            Console.WriteLine("░█▀▀░█▀█░█▀█░█▀▄░▀█▀░█▀█");  // ??? 로 나와서 주석처리함 encoding문제?
+            Console.WriteLine("░█▀▀░█▀█░█▀█░█▀▄░▀█▀░█▀█");  // ??? 로 나와서 주석처리함
             Console.WriteLine("░▀▀█░█▀▀░█▀█░█▀▄░░█░░█▀█");
             Console.WriteLine("░▀▀▀░▀░░░▀░▀░▀░▀░░▀░░▀░▀");
             Console.WriteLine("░█▀▄░█░█░█▀█░█▀▀░█▀▀░█▀█░█▀█");
