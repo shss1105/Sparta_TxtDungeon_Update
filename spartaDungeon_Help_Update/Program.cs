@@ -30,12 +30,6 @@ namespace spartaDungeon_Help_Update
         {
             playerItems.Add(item);
         }
-
-        public int GetItemCount()
-        {
-            return playerItems.Count;
-        }
-
     }
 
     public class Item
@@ -138,7 +132,6 @@ namespace spartaDungeon_Help_Update
     internal class Program
     {
         static Charater player; // 왜 static 인지? => 정적(static)으로 선언된 변수는 해당 클래스가 처음 사용되는 때에 한 번만 초기화되고 계속 동일한 메모리를 가짐 
-        static Item[] playerItems;
         static Item[] items;  // 아이템이 여러개이기 때문에 배열을 사용
         static void Main(string[] args)
         {
@@ -379,7 +372,7 @@ namespace spartaDungeon_Help_Update
                     ShopMenu();
                     break;
                 default:
-                    ToggleEquipStatus(keyInput - 1); //유저가 입력하는 건 1,2,3 실제 배열은 0,1,2
+                    CheckIsPurchased(keyInput - 1); //유저가 입력하는 건 1,2,3 실제 배열은 0,1,2
                     ShopTradeMenu();
                     break;
             }
@@ -433,7 +426,7 @@ namespace spartaDungeon_Help_Update
             return false;
         }
 
-        private static void PrintStartLogo() // 
+        private static void PrintStartLogo()
         {
             /*
             Console.WriteLine("░█▀▀░█▀█░█▀█░█▀▄░▀█▀░█▀█");  // ??? 로 나와서 주석처리함
@@ -454,7 +447,6 @@ namespace spartaDungeon_Help_Update
         private static void GameDataSetting()
         {
             player = new Charater(1, "rtan", "전사", 10, 5, 100, 1500, new List<Item>());
-            playerItems = new Item[100];
             items = new Item[100];
             AddItem(new Item("수련자 갑옷", "수련에 도움을 주는 갑옷입니다.", 0, 0, 5, 0, 1000));
             AddItem(new Item("무쇠갑옷", "무쇠로 만들어져 튼튼한 갑옷입니다.", 0, 0, 9, 0, 2400));
