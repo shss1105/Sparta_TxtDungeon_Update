@@ -12,7 +12,9 @@ namespace spartaDungeon_Help_Update
         public int Health { get; }
         public int Gold { get; }
 
-        public Charater(int lv, string name, string job, int damage, int armor, int health, int gold) // 인스턴스를 생성할 때 기본 세팅
+        public List<Item> playerItems { get; }
+
+        public Charater(int lv, string name, string job, int damage, int armor, int health, int gold, List<Item> items) // 인스턴스를 생성할 때 기본 세팅
         {
             Lv = lv;
             Name = name;
@@ -21,6 +23,17 @@ namespace spartaDungeon_Help_Update
             Def = armor;
             Health = health;
             Gold = gold;
+            playerItems = items;
+        }
+
+        public void BuyItems(Item item)
+        {
+            playerItems.Add(item);
+        }
+
+        public int GetItemCount()
+        {
+            return playerItems.Count;
         }
 
     }
@@ -90,7 +103,7 @@ namespace spartaDungeon_Help_Update
             }
         }
 
-        public void PrintItemStatDescription(bool withNumber = false, int idx =0)
+        public void PrintItemStatDescription(bool withNumber = false, int idx = 0)
         {
             Console.Write("- ");
             if (withNumber)
@@ -178,7 +191,7 @@ namespace spartaDungeon_Help_Update
 
             ShowHighlightedText("상태 보기");
             Console.WriteLine("캐릭터의 정보가 표시됩니다.");
-            Console.WriteLine() ;
+            Console.WriteLine();
             PrintTextWithHighlight("Lv. ", player.Lv.ToString("00")); // 숫자 2자리까지 표시
             Console.WriteLine("{0} ( {1} )", player.Name, player.Job);
 
@@ -295,7 +308,7 @@ namespace spartaDungeon_Help_Update
             items[idx].isEquipped = !items[idx].isEquipped;
         }
 
-        private static void CheckIsPurchased(int idx) 
+        private static void CheckIsPurchased(int idx)
         {
             items[idx].isPurchased = !items[idx].isPurchased;
         }
@@ -363,11 +376,11 @@ namespace spartaDungeon_Help_Update
             switch (keyInput)
             {
                 case 0:
-                    InventoryMenu();
+                    ShopMenu();
                     break;
                 default:
                     ToggleEquipStatus(keyInput - 1); //유저가 입력하는 건 1,2,3 실제 배열은 0,1,2
-                    EquipMenu();
+                    ShopTradeMenu();
                     break;
             }
         }
@@ -403,13 +416,13 @@ namespace spartaDungeon_Help_Update
                 result = int.TryParse(Console.ReadLine(), out keyInput); // tryparse : 될수도 안될수도 있다고 생각
                 if (result == false || CheckIfValid(keyInput, min, max) == false) // 틀리면 계속 반복, 키인풋이 숫자인지 체크,1~3인지 체크
                 {
-                    Console.ForegroundColor= ConsoleColor.Red;
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("잘못된 입력입니다.");
                     Console.ResetColor();
                 }
                 else break;
 
-            } 
+            }
             //제대로 키 입력을 받았으면
             return keyInput;
         }
@@ -440,7 +453,7 @@ namespace spartaDungeon_Help_Update
 
         private static void GameDataSetting()
         {
-            player = new Charater(1, "rtan", "전사", 10, 5, 100, 1500);
+            player = new Charater(1, "rtan", "전사", 10, 5, 100, 1500, new List<Item>());
             playerItems = new Item[100];
             items = new Item[100];
             AddItem(new Item("수련자 갑옷", "수련에 도움을 주는 갑옷입니다.", 0, 0, 5, 0, 1000));
